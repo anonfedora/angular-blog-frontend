@@ -17,12 +17,12 @@ export const JWT_NAME = "blog-token";
 })
 export class AuthService {
     constructor(
-        private httpClient: HttpClient,
+        private http: HttpClient,
         private jwtHelper: JwtHelperService
     ) {}
 
     login(loginForm: LoginForm) {
-        return this.httpClient
+        return this.http
             .post<any>("/api/users/login", {
                 email: loginForm.email,
                 password: loginForm.password
@@ -41,13 +41,14 @@ export class AuthService {
     }
 
     register(user: User) {
-        return this.httpClient.post<any>("/api/users", user);
+        return this.http.post<any>("/api/users", user);
     }
 
     isAuthenticated(): boolean {
         const token = localStorage.getItem(JWT_NAME);
         return !this.jwtHelper.isTokenExpired(token);
     }
+    
     getUserId(): Observable<number> {
         return of(localStorage.getItem(JWT_NAME)).pipe(
             switchMap((jwt: string) =>
