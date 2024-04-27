@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
 
     constructor(
-        private authService: AuthenticationService,
+        private authService: AuthService,
         private formBuilder: FormBuilder,
         private router: Router
     ) {}
